@@ -1,0 +1,57 @@
+<nav class = "navbar  navbar-expand navbar-light bg-light">
+    <button class = "navbar-toggler" type = "button" data-toggle = "collapse">
+       <span class = "navbar-toggler-icon">
+     </button>
+     <div class = "collapse navbar-collapse" id = "navbarSupportedContent">
+            Ruby On Rails Todo 
+            <% if is_auth %>
+                &nbsp <i> Welcome - <%= signed_in_user.username %></i>
+
+            <% end %>
+     </div>
+     <div class = "collapse navbar-nav">
+        <ul class = "navbar-nav">
+        <% unless is_auth %>
+            <li class = "nav-item">
+                <%= link_to "login","login",class:"nav-link"%>
+            </li>
+             <li class = "nav-item">
+                <%= link_to "register","register",class:"nav-link"%>
+            </li>
+            <% else %>
+            <li class = "nav-item">
+                 <%= link_to "Logout","users/logout",class:"btn btn-primary"%>
+            </li>
+        <% end %>
+        </ul>
+    </div>
+  </nav>
+<div id = "body">
+ <% if is_auth %>
+    <ul class= "list-group">
+        <li class = "list-group-item disabled">Current Todo List <%= link_to "Add new Item", "tasks/new" ,class: "btn btn-secondary",style: "float:right" %>
+ <% if @tasks %>
+     <% @tasks.each { |task| %>
+         <li class = "list-group-item "> <%= task.title %>
+         <span style = "float:right">
+           <%= Time.at(task.date_added).ctime%>
+         </span>
+          <span style = "float:right">
+            <% unless task.accomplished %>
+            <%=link_to "Mark As Completed", "tasks/complete/#{task.id}", class:"btn btn-success", style:"margin-right:5px"%>
+            <% else %>
+                <span class = "badge badge-primary" style = "margin-right:5px;padding:10px 13px">Completed</span>
+                <%= link_to 'Remove', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+            <% end %>
+         </span>
+          </li>
+    <% } %>
+  <% end %>
+    </ul>
+    <% else %>
+    <div class = "alert alert-info">
+        Sign In to display your tasks
+    </div>
+<% end %>
+
+</div>
