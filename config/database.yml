@@ -16,7 +16,7 @@ default: &default
   username: godhand
   password: Chimaroke15$
   host: localhost
-  database: rails_todo
+  database: railstodo
 
 development:
   <<: *default
