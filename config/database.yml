@@ -16,7 +16,7 @@ default: &default
   username: ENV["DB_USERNAME"]
   password: ENV["DB_PASSWORD"]
   host: localhost
-  database: ENV["DB_DATABASE"]
+  database: ENV["DATABASE_NAME"]
 
 development:
   <<: *default

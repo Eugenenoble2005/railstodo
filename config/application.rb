@@ -18,5 +18,12 @@ module Todo
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.before_configuration{
+      env_file = File.join(Rails.root,"config","local_env.yml")
+      YAML.load(File.open(env_file)).each{
+        |key,value|
+          ENV[key.to_s] = value
+      }
+    }
   end
 end
